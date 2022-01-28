@@ -1,0 +1,4 @@
+# Kasumi-OTAGen
+
+Based on PixelBoot's [Lineage-OTA], refactored for a better
+implementation by Beru Shinsetsu on behalf of Project Kasumi.

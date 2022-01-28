@@ -1,22 +1,19 @@
 #!/bin/bash
 
+jsonfile="${ROM_DIR}/vendor/kasumiota/${device}.json"
 d=$(date +%Y%m%d)
-oldd=$(grep filename angler.json | cut -d '-' -f 3)
-md5=$(md5sum ../out/target/product/angler/lineage-17.1-"${d}"-UNOFFICIAL-angler.zip | cut -d ' ' -f 1)
-oldmd5=$(grep '"id"' angler.json | cut -d':' -f 2)
-utc=$(grep ro.build.date.utc ../out/target/product/angler/system/build.prop | cut -d '=' -f 2)
-oldutc=$(grep datetime angler.json | cut -d ':' -f 2)
-size=$(wc -c ../out/target/product/angler/lineage-17.1-"${d}"-UNOFFICIAL-angler.zip | cut -d ' ' -f 1)
-oldsize=$(grep size angler.json | cut -d ':' -f 2)
-oldurl=$(grep url angler.json | cut -d ' ' -f 8)
+md5=$(md5sum ${finalzip_path} | cut -d ' ' -f 1)
+utc=$(grep ro.build.date.utc $(dirname ${finalzip_path})/system/build.prop | cut -d '=' -f 2)
+size=$(wc -c ${finalzip_path} | cut -d ' ' -f 1)
+url="${release_repo}/releases/${tag}/${zip_name}/"
 
 # This is where the magic happens
 
-
-sed -i "s!${oldmd5}! \"${md5}\",!g" angler.json
-sed -i "s!${oldutc}! \"${utc}\",!g" angler.json
-sed -i "s!${oldsize}! \"${size}\",!g" angler.json
-sed -i "s!${oldd}!${d}!" angler.json
-echo Enter the new Download URL
-read -r url
-sed -i "s!${oldurl}!\"${url}\",!g" angler.json
+echo -e "{\n  \"response\": [\n    {" > ${jsonfile}
+echo -e "      \"datetime\": \"${utc}\"," >> ${jsonfile}
+echo -e "      \"filename\": \"${zip_name}\"," >> ${jsonfile}
+echo -e "      \"id\": \"${md5}\"," >> ${jsonfile}
+echo -e "      \"romtype\": \"OFFICIAL\"," >> ${jsonfile}
+echo -e "      \"size\": \"${size}\"," >> ${jsonfile}
+echo -e "      \"url\": \"${url}\"," >> ${jsonfile}
+echo -e "      \"version\": \"1.0\"\n    }\n  ]\n}" >> ${jsonfile}
