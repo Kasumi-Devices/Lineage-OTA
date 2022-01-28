@@ -1,6 +1,10 @@
 #!/bin/bash
 
-jsonfile="${ROM_DIR}/vendor/kasumiota/${device}.json"
+if ["${KASUMI_BUILD_TYPE}" == "vanilla"]; then
+    jsonfile="${ROM_DIR}/vendor/kasumiota/${device}.json"
+else
+    jsonfile="${ROM_DIR}/vendor/kasumiota/${KASUMI_BUILD_TYPE}/${device}.json"
+fi
 d=$(date +%Y%m%d)
 md5=$(md5sum ${finalzip_path} | cut -d ' ' -f 1)
 utc=$(grep ro.build.date.utc $(dirname ${finalzip_path})/system/build.prop | cut -d '=' -f 2)
