@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ["${KASUMI_BUILD_TYPE}" == "vanilla"]; then
+if [ "${KASUMI_BUILD_TYPE}" == "vanilla" ]; then
     jsonfile="${ROM_DIR}/vendor/kasumiota/${device}.json"
 else
     jsonfile="${ROM_DIR}/vendor/kasumiota/${KASUMI_BUILD_TYPE}/${device}.json"
