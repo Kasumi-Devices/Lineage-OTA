@@ -6,7 +6,7 @@ else
     jsonfile="${ROM_DIR}/vendor/kasumiota/${KASUMI_BUILD_TYPE}/${device}.json"
 fi
 d=$(date +%Y%m%d)
-md5=$(md5sum ${finalzip_path} | cut -d ' ' -f 1)
+sha256=$(sha256sum ${finalzip_path} | cut -d ' ' -f 1)
 utc=$(grep ro.build.date.utc $(dirname ${finalzip_path})/system/build.prop | cut -d '=' -f 2)
 size=$(wc -c ${finalzip_path} | cut -d ' ' -f 1)
 url="https://github.com/${release_repo}/releases/download/${tag}/${zip_name}"
@@ -16,7 +16,7 @@ url="https://github.com/${release_repo}/releases/download/${tag}/${zip_name}"
 echo -e "{\n  \"response\": [\n    {" > ${jsonfile}
 echo -e "      \"datetime\": \"${utc}\"," >> ${jsonfile}
 echo -e "      \"filename\": \"${zip_name}\"," >> ${jsonfile}
-echo -e "      \"id\": \"${md5}\"," >> ${jsonfile}
+echo -e "      \"id\": \"${sha256}\"," >> ${jsonfile}
 echo -e "      \"romtype\": \"OFFICIAL\"," >> ${jsonfile}
 echo -e "      \"size\": \"${size}\"," >> ${jsonfile}
 echo -e "      \"url\": \"${url}\"," >> ${jsonfile}
