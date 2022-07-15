@@ -20,6 +20,6 @@ echo -e "      \"id\": \"${sha256}\"," >> ${jsonfile}
 echo -e "      \"romtype\": \"OFFICIAL\"," >> ${jsonfile}
 echo -e "      \"size\": \"${size}\"," >> ${jsonfile}
 echo -e "      \"url\": \"${url}\"," >> ${jsonfile}
-echo -e "      \"version\": \"1.2\"\n    }\n  ]\n}" >> ${jsonfile}
+echo -e "      \"version\": \"1.3\"\n    }\n  ]\n}" >> ${jsonfile}
 
 echo "OTA has been created. Please navigate to $TOP/vendor/kasumiota and write a changelog named $LINEAGE_BUILD.md!"
